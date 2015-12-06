@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>CRM Mobile App JumpStart Tutorial</title>
+    <style type="text/css">
+        .auto-style1 {
+            color: #FF3300;
+        }
+    </style>
+</head>
+<body style="font-family: 'Segoe UI'">
+    <h1><strong>Welcome to CRM Mobile App Template JumpStart Tutorial!</strong></h1>
+    <p>Follow the step by step below to prepare your application.</p>
+    <p class="auto-style1">!!NOTE!!<br />
+        If you just want to start developing your application, you can skip following steps and start developing an application right away, as this project is registered to Azure AD managed by Kenichiro Nakamura for test. Please note that if you register your application to Windows Phone Store, then you MUST register your application to your Microsoft Azure AD because RedirectUri will be changed, and existing registration won&#39;t work. In addition, I have no guranttee to maintain current registration.</p>
+    <p><strong>Register Your Application.</strong></p>
+    <p>This template uses Active Directory Authentication Library (ADAL) to authenticate the application using OAuth 2.0 against Microsoft Azure Active Direcotry (AAD) in case of CRM Online, or Active Directory Federation Service (AD FS) in case of CRM On-Premise. To make it happen, you need to register your application to AAD/ADFS. Following step by step explains how to register your application to AAD.</p>
+    <p>1. First of all, obtain RedirectUri value which you use to register your application. Go to OrganizationServiceProxy.cs file, which opens next to this tutorial, then put breakpoint at line 196.</p>
+    <p><img src="img/RedirectUriBreakPoint.PNG" /></p>
+    <p>2. Run the application with debug mode. When the breakpoint hit, press F10 to move to next line and mouse over to RedirectUri, which gives you a RedirectUri value.</p>
+    <p><img src="img/RedirectUri.PNG" /></p>
+    <p>3. Once you obtained RedirectUri, go to Microsoft Azure Portal. (http://manage.windowsazure.com)</p>
+    <p>4. Select Active Directoryon the left pane, and select your directory.</p>
+    <p><img src="img/AAD.PNG" /></p>
+    <p>5. Click APPLICATIONS menu on the top, then click ADD button in the bottom.</p>
+    <p><img src="img/AADHeader.PNG" /></p>
+    <p><img src="img/AADButtons.PNG" /></p>
+    <p>6. Select “Add an application my organization is developing. Click next icon.</p>
+    <p><img src="img/Wizard1.PNG" /></p>
+    <p>7. Enter any name and select &quot;NATIVE CLIENT APPLICATION&quot; option. Click next icon.</p>
+    <p><img src="img/Wizard2.PNG" /></p>
+    <p>8. Enter RedirectUri you just obtained. Click next icon.</p>
+    <p>9. Once registration completed, click CONFIGURE menu. </p>
+    <p><img src="img/AppHeader.PNG" /></p>
+    <p>10. Copy a CLIENT ID, which you will update the code by it. </p>
+    <p><img src="img/AppClientId.PNG" /></p>
+    <p>11. Navigate to bottom of the page to setup impersonation. Click &quot;Add application&quot;.</p>
+    <p><img src="img/AppPermissions.PNG" /></p>
+    <p>12. Select &quot;Dynamics CRM Online&quot; from Select application dropdown, and select &quot;Access CRM Online as organization users.&quot; </p>
+    <p><img src="img/PermissionsToApp.PNG" /></p>
+    <p>13. Click Delegate Permission and check &quot;Access CRM Online as organizaion users&quot;. </p>
+    <p><img src="img/SelectDelegation.PNG" /></p>
+    <p>14. Click &quot;SAVE&quot; to save the change.</p>
+    <p><img src="img/AppButtons.PNG" /></p>
+    <p>15. Come back to this project and open OrganizaionServiceProxy.cs file. Replace existing ClientId to new value at line 195.</p>
+    
+</body>
+</html>

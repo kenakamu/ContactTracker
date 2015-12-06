@@ -1,0 +1,72 @@
+﻿<Page
+    x:Class="ContactTracker.View.ContactEdit"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ContactTracker.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:commands="using:ContactTracker.Commands"
+    xmlns:CustomControl="using:ContactTracker.CustomControl"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    RequestedTheme="Light">
+
+    <Page.BottomAppBar>
+        <CommandBar IsOpen="True">
+            <AppBarButton Icon="Save" Label="Save" Command="{Binding SaveCommand}"/>
+            <AppBarButton Icon="Camera" Label="Take Photo" Command="{Binding PictureCommand}"/>
+            <AppBarButton Icon="Scan" Label="Read Card" Command="{Binding ScanCommand}"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+    
+    <Grid>
+
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Page Header -->
+        <Grid Style="{StaticResource Grid_PageHeader}">
+            <TextBlock Text="Contact" Style="{StaticResource TextBlock_PageHeader}" />           
+        </Grid>
+        <Grid Grid.Row="1" Style="{StaticResource Grid_ContactEdit}" >
+            <Image Source="{Binding Source}" Margin="12,12,0,0" Height="120" Width="120" HorizontalAlignment="Left"/>
+        </Grid>
+            
+            <!-- Contact Record -->
+        <Grid Grid.Row="2" Style="{StaticResource Grid_ContactEdit}" 
+              DataContext="{Binding Contact}">
+            <ScrollViewer>
+                <StackPanel Style="{StaticResource StackPanel_ContactEdit}" >                    
+                    <TextBlock Text="First Name" Style="{StaticResource FieldName}"/>
+                    <TextBox Text="{Binding FirstName, Mode=TwoWay}" Style="{StaticResource FieldValue}"/>
+                    <TextBlock Text="Last Name" Style="{StaticResource FieldName}"/>
+                    <TextBox Text="{Binding LastName, Mode=TwoWay}" Style="{StaticResource FieldValue}"/>
+                    <TextBlock Text="Job Title" Style="{StaticResource FieldName}"/>
+                    <TextBox Text="{Binding JobTitle, Mode=TwoWay}" Style="{StaticResource FieldValue}"/>
+                    <TextBlock Text="Web Site Url" Style="{StaticResource FieldName}"/>
+                    <TextBox Text="{Binding WebSiteUrl, Mode=TwoWay}" Style="{StaticResource FieldValue}"/>
+                    <TextBlock Text="Business Phone" Style="{StaticResource FieldName}"/>
+                    <TextBox Text="{Binding Telephone1, Mode=TwoWay}" Style="{StaticResource FieldValue}"/>
+                    <TextBlock Text="E-Mail" Style="{StaticResource FieldName}"/>
+                    <TextBox Text="{Binding EMailAddress1, Mode=TwoWay}" Style="{StaticResource FieldValue}"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <ProgressRing Grid.RowSpan="3" 
+                   IsActive="{Binding IsLoading, Mode=TwoWay}"/>
+        <TextBlock Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"
+                   FontSize="24"
+                   Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}"
+                   Text="{Binding Message}"/>
+    </Grid>
+</Page>

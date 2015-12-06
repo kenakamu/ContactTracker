@@ -1,0 +1,123 @@
+<Application x:Class="ContactTracker.App" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"	
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"	
+             xmlns:local="using:ContactTracker"
+             xmlns:converter="using:ContactTracker.Converter"
+             xmlns:commands="using:ContactTracker.Commands">
+
+    <!-- Use following resources to branding the application -->
+    <Application.Resources>
+        <SolidColorBrush x:Key="DARK" Color="#FF253D5D" />
+        <SolidColorBrush x:Key="NORMAL" Color="DeepSkyBlue" />
+        <SolidColorBrush x:Key="LIGHT" Color="#FF02A2D8" />
+        <SolidColorBrush x:Key="VERY_LIGHT_GREY" Color="#FFF5F5F5" />
+        <SolidColorBrush x:Key="MEDIUM_GREY" Color="#FF999999" />
+        <SolidColorBrush x:Key="DARK_GREY" Color="#FF666666" />
+        <SolidColorBrush x:Key="LINE_COLOR" Color="#FFDDDDDD" />
+
+        <!-- For Page Header -->
+        <Style x:Key="TextBlock_PageHeader" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style x:Key="Grid_PageHeader" TargetType="Grid">
+            <Setter Property="Height" Value="50" />
+            <Setter Property="Background" Value="{StaticResource DARK}" />
+        </Style>
+        <Style x:Key="Button_PageHeader" TargetType="Button">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="MinHeight" Value="45" />
+            <Setter Property="MinWidth" Value="45" />
+            <Setter Property="Margin" Value="0,0,12,0" />
+        </Style>
+
+        <!-- For List (Contacts and Activities) -->
+        <Style x:Key="TextBlock_ListHeader" TargetType="TextBlock">
+            <Setter Property="Margin" Value="20,8,0,0" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Foreground" Value="{StaticResource MEDIUM_GREY}" />
+        </Style>
+        <Style x:Key="Grid_List" TargetType="Grid">
+            <Setter Property="Margin" Value="12,0,12,0" />
+        </Style>
+        <Style x:Key="StackPanel_List_Item" TargetType="StackPanel">
+            <Setter Property="Margin" Value="24,0,12,6" />
+        </Style>
+        <Style x:Key="Image_List" TargetType="Image">
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Width" Value="32" />
+            <Setter Property="Stretch" Value="Uniform" />
+        </Style>
+        <Style x:Key="List_ContactName" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource LIGHT}" />
+            <Setter Property="FontSize" Value="24" />
+        </Style>
+        <Style x:Key="List_ContactSubTitle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource MEDIUM_GREY}" />
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+        
+        <Style x:Key="Line_List" TargetType="Line">
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="Stretch" Value="Fill" />
+            <Setter Property="Stroke" Value="{StaticResource LINE_COLOR}" />
+            <Setter Property="StrokeThickness" Value="0.5" />
+            <Setter Property="X1" Value="0" />
+            <Setter Property="X2" Value="1" />
+        </Style>
+
+        <!-- For Contact Card -->
+        <Style x:Key="Grid_ContactCard" TargetType="Grid">
+            <Setter Property="Background" Value="{StaticResource VERY_LIGHT_GREY}" />
+        </Style>
+        <Style x:Key="StackPanel_ContactCard" TargetType="StackPanel">
+            <Setter Property="Margin" Value="6,6,0,6" />
+        </Style>
+        <Style x:Key="Card_ContactName" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource LIGHT}" />
+            <Setter Property="FontSize" Value="32" />
+        </Style>
+        <Style x:Key="Card_ContactSubTitle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource MEDIUM_GREY}" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+        <Style x:Key="StackPanel_Card_Item" TargetType="StackPanel">
+            <Setter Property="Margin" Value="24,0,0,6" />
+            <Setter Property="Orientation" Value="Horizontal" />
+        </Style>
+        <Style x:Key="Image_Card_Item" TargetType="Image">
+            <Setter Property="Width" Value="40" />
+        </Style>
+        <Style x:Key="Card_Item" TargetType="TextBlock">
+            <Setter Property="Margin" Value="12,0,12,0" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Foreground" Value="{StaticResource DARK_GREY}" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <!-- For Contact Edit Page -->
+        <Style x:Key="Grid_ContactEdit" TargetType="Grid">
+            <Setter Property="Background" Value="{StaticResource VERY_LIGHT_GREY}" />
+        </Style>
+        <Style x:Key="StackPanel_ContactEdit" TargetType="StackPanel">
+              <Setter Property="Margin" Value="12" />
+        </Style>
+        <Style x:Key="FieldName" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource NORMAL}" />
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+        <Style x:Key="FieldValue" TargetType="TextBox">
+            <Setter Property="FontSize" Value="22" />
+        </Style>
+
+        <!-- Action Commands -->
+        <commands:ActionCommands x:Key="ActionCommands"/>
+        
+        <!-- Converter -->
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        
+    </Application.Resources>
+</Application>

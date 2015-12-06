@@ -1,0 +1,69 @@
+﻿<Page
+    x:Class="ContactTracker.View.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ContactTracker.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:commands="using:ContactTracker.Commands"
+    xmlns:CustomControl="using:ContactTracker.CustomControl"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    RequestedTheme="Light">
+
+    <Page.BottomAppBar>
+        <CommandBar IsOpen="True">
+            <AppBarButton Icon="Add" Label="Add" Command="{Binding AddCommand}"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+    <Grid>
+       
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Page Header -->
+        <Grid Style="{StaticResource Grid_PageHeader}">
+            <TextBlock Text="Contact Tracker" Style="{StaticResource TextBlock_PageHeader}" />
+            <Button Style="{StaticResource Button_PageHeader}" Command="{Binding GoSettingsCommand}">
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="../Assets/icon-settings.png"/>
+                </Button.Background>
+            </Button>
+        </Grid>
+
+        <!-- SearchBox -->
+        <Grid Grid.Row="1">
+            <CustomControl:SearchBox x:Name="SearchBox" SearchCriteria="{Binding SearchCriteria, Mode=TwoWay}"/>
+        </Grid>
+
+        <!-- Contact List -->
+        <Grid Grid.Row="2" Style="{StaticResource Grid_List}">
+            <ScrollViewer>
+                <ListView x:Name="lvContacts" 
+                          ItemsSource="{Binding Contacts}"
+                          IsItemClickEnabled="True"                          
+                          commands:ItemClickCommand.Command="{Binding ItemClickCommand}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="../Assets/icon-contact.png" Style="{StaticResource Image_List}" />
+                                    <StackPanel Style="{StaticResource StackPanel_List_Item}">
+                                        <TextBlock Text="{Binding FullName}" Style="{StaticResource List_ContactName}" />
+                                        <TextBlock Text="{Binding JobTitle}" Style="{StaticResource List_ContactSubTitle}" />
+                                    </StackPanel>
+                                </StackPanel>
+                                <Line Style="{StaticResource Line_List}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>            
+        </Grid>
+        
+        <ProgressRing Grid.RowSpan="3" IsActive="{Binding IsLoading, Mode=TwoWay}"/>
+    </Grid>
+</Page>

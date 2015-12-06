@@ -1,0 +1,53 @@
+﻿<Page
+    x:Class="ContactTracker.View.SignInPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ContactTracker.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:commands="using:ContactTracker.Commands"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    RequestedTheme="Light">
+
+    <Page.BottomAppBar>
+        <CommandBar IsOpen="True" IsSticky="True">
+            <AppBarButton Icon="Accept" Label="Submit" Command="{Binding SubmitCommand}"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+    
+    <Grid>
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Page Header -->
+        <Grid Style="{StaticResource Grid_PageHeader}">
+            <TextBlock Text="Settings" Style="{StaticResource TextBlock_PageHeader}" />
+        </Grid>
+
+        <!--Set Server -->
+        <Grid Grid.Row="1" Margin="12">
+            <StackPanel>
+                <TextBlock Text="ENDPOINT" Margin="10" FontSize="20" />
+                <!-- Helper to set CRM Online address. You can remove this if you dont use this -->
+                <TextBox Text="{Binding ServiceUrl, Mode=TwoWay}" PlaceholderText="https://org.crm.dynamics.com" InputScope="Url" />
+                <ComboBox BorderThickness="0" commands:SelectionChangedCommand.Command="{Binding SelectionChangedCommand}">
+                    <ComboBoxItem Content="NA Online" DataContext="https://org.crm.dynamics.com"/>
+                    <ComboBoxItem Content="EMEA Online" DataContext="https://org.crm4.dynamics.com"/>
+                    <ComboBoxItem Content="APAC Online" DataContext="https://org.crm5.dynamics.com"/>
+                    <ComboBoxItem Content="ON-PREMISE" DataContext="https://org.server:port"/>
+                </ComboBox>
+            </StackPanel>            
+        </Grid>
+
+        <ProgressRing Grid.RowSpan="2" IsActive="{Binding IsLoading}"/>        
+    </Grid>
+</Page>

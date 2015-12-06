@@ -1,0 +1,83 @@
+﻿<Page
+    x:Class="ContactTracker.View.ContactPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ContactTracker.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" 
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core" 
+    xmlns:CustomControl="using:ContactTracker.CustomControl" 
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    RequestedTheme="Light">
+
+    <Page.BottomAppBar>
+        <CommandBar IsOpen="True">
+            <AppBarButton Icon="Edit" Label="Edit" Command="{Binding EditCommand}"/>          
+        </CommandBar>
+    </Page.BottomAppBar>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title Panel -->
+        <!-- Page Header -->
+        <Grid Style="{StaticResource Grid_PageHeader}">
+            <TextBlock Text="Contact" Style="{StaticResource TextBlock_PageHeader}" />
+        </Grid>
+
+        <!-- Contact Card -->
+        <Grid Grid.Row="1" Style="{StaticResource Grid_ContactCard}" 
+              DataContext="{Binding Contact}">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <!-- Picture, Name, JobTitle, and ParentCompany name -->
+                    <CustomControl:EntityImageControl ImageBytes="{Binding EntityImage}" Margin="6,0,6,0" />
+                    <StackPanel Style="{StaticResource StackPanel_ContactCard}">
+                        <TextBlock Text="{Binding FullName}" Style="{StaticResource Card_ContactName}" />
+                        <TextBlock Text="{Binding JobTitle}" Style="{StaticResource Card_ContactSubTitle}" />
+                        <TextBlock Text="{Binding ParentCustomerId.Name}" Style="{StaticResource Card_ContactSubTitle}" />
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Card Items-->
+                <StackPanel Style="{StaticResource StackPanel_Card_Item}">
+                    <Image Source="../Assets/icon-contact-map.png" Style="{StaticResource Image_Card_Item}" />
+                    <TextBlock Text="{Binding WebSiteUrl}" Style="{StaticResource Card_Item}" TextWrapping="Wrap">
+                        <Interactivity:Interaction.Behaviors>
+                            <Core:EventTriggerBehavior EventName="Tapped">
+                                <Core:InvokeCommandAction Command="{Binding Source={StaticResource ActionCommands}, Path=WebTo}" CommandParameter="{Binding WebSiteUrl}"/>
+                            </Core:EventTriggerBehavior>
+                        </Interactivity:Interaction.Behaviors>
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Style="{StaticResource StackPanel_Card_Item}">
+                    <Image Source="../Assets/icon-contact-phone.png" Style="{StaticResource Image_Card_Item}" />
+                    <TextBlock Text="{Binding Telephone1}" Style="{StaticResource Card_Item}">
+                         <Interactivity:Interaction.Behaviors>
+                            <Core:EventTriggerBehavior EventName="Tapped">
+                                <Core:InvokeCommandAction Command="{Binding Source={StaticResource ActionCommands}, Path=CallTo}" CommandParameter="{Binding Telephone1}"/>
+                            </Core:EventTriggerBehavior>
+                        </Interactivity:Interaction.Behaviors>
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Style="{StaticResource StackPanel_Card_Item}">
+                    <Image Source="../Assets/icon-contact-email.png" Style="{StaticResource Image_Card_Item}" />
+                    <TextBlock Text="{Binding EMailAddress1}" Style="{StaticResource Card_Item}" >
+                        <Interactivity:Interaction.Behaviors>
+                            <Core:EventTriggerBehavior EventName="Tapped">
+                                <Core:InvokeCommandAction Command="{Binding Source={StaticResource ActionCommands}, Path=MailTo}" CommandParameter="{Binding EMailAddress1}"/>
+                            </Core:EventTriggerBehavior>
+                        </Interactivity:Interaction.Behaviors>
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <ProgressRing Grid.RowSpan="2" IsActive="{Binding IsLoading}"/>
+    </Grid>
+</Page>
