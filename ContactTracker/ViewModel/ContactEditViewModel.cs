@@ -263,6 +263,8 @@ namespace ContactTracker.ViewModel
                 return new RelayCommand(async() =>
                 {
                     IsLoading = true;
+
+                    Message = "Saving the Contact";
                     await CrmHelper.UpsertContact(contact);
                     App.rootFrame.GoBack();
                     IsLoading = false;
